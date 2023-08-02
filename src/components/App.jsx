@@ -4,7 +4,7 @@ import Login from './Login';
 import Dashboard from './Dashboard';
 import Signup from './Signup';
 
-
+/** Should React-Router be imported in App or index.js? Does it matter? */
 class App extends Component {
 
   render() {
