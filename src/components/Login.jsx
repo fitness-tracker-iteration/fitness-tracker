@@ -9,32 +9,26 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
 	const navigate = useNavigate();
-	const [isSuccess, setisSuccess] = useState(true);
 
-	const handleLoginClick = async () => {
-		// if (loginSuccess) {
-		//   setisSuccess(!isSuccess)
-
-		//   navigate('/main');
-		// }
-		try {
-			const response = await fetch('/login', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ username: username, password: password }),
-			});
-			const data = await response.json();
-			if (data.authenticated) navigate('/main');
-		} catch (error) {
-			console.log(error);
-			setisSuccess(false);
-		}
-	};
+	const handleLoginClick = () => {
+		fetch('/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ username: document.querySelector('#username').value, password: document.querySelector('#password').value }),
+		})
+		.then(res => res.json())
+		.then(data => {
+			if(data.authenticated) {
+				navigate('/main');
+			} else {
+				navigate('/signup');
+			}
+		})
+		.catch(err => console.log('error occured: ', err));
+	}
 
 	const handleSignupClick = () => {
 		navigate('/signup');
@@ -50,18 +44,20 @@ const Login = () => {
 					<FormControl>
 						<FormLabel>Username</FormLabel>
 						<TextField
+							id="username"
 							type="text"
-							value={username}
-							onChange={(e) => setUsername(e.target.value)}
+							// value={username}
+							// onChange={(e) => setUsername(e.target.value)}
 							placeholder="Username..."
 						></TextField>
 					</FormControl>
 					<FormControl>
-						<FormLabel>password</FormLabel>
+						<FormLabel>Password</FormLabel>
 						<TextField
+							id="password"
 							type="password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							// value={password}
+							// onChange={(e) => setPassword(e.target.value)}
 							placeholder="Password..."
 						></TextField>
 					</FormControl>
