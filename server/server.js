@@ -5,6 +5,7 @@ const path = require('path');
 const app = express();
 require('dotenv').config();
 const PORT = 3000;
+const cors = require('cors');
 
 
 // require controllers
@@ -29,7 +30,7 @@ mongoose.connect(mongoURI, {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-
+app.use(cors());
 // app.use(express.static(path.join(__dirname, '../dist')));
 
 app.post('/login',

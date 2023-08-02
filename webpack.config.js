@@ -40,18 +40,23 @@ module.exports = {
     ]
   },
   devServer: {
-    static: {
-      directory: path.resolve(__dirname, 'dist'),
-      publicPath: '/',
-    },
+    // static: {
+    //   directory: path.resolve(__dirname, 'dist'),
+    //   publicPath: '/',
+    // },
+    // proxy: {
+    //   '/login': 'http://localhost:3000',
+    //   '/stats': 'http://localhost:3000',
+    //   '/main': 'http://localhost:3000',
+    //   '/signup': 'http://localhost:3000',
+    //   '/logout': 'http://localhost:3000'
+    //   // add more as we add more endpoints
+    // }
+    port: 8080,
     proxy: {
-      '/login': 'http://localhost:3000',
-      '/stats': 'http://localhost:3000',
-      '/main': 'http://localhost:3000',
-      '/signup': 'http://localhost:3000',
-      '/logout': 'http://localhost:3000'
-      // add more as we add more endpoints
-    }
+      '/': 'http://localhost:3000',
+    },
+    historyApiFallback: true,
   }
 
 
