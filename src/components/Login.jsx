@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -69,7 +70,8 @@ const Login = () => {
 						Log In
 					</Button>
 					<Typography variant="subtitle1" gutterBottom>
-						Already got an account? Sign up
+						Already got an account?{' '}
+						<Link onClick={handleSignupClick}>Sign up</Link>
 					</Typography>
 				</Stack>
 			</div>
