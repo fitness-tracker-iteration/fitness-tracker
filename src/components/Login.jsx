@@ -36,7 +36,7 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div data-testid="login-component">
       <div className="login-container">
         <h1 className='login-text'>WEIGHT LOSS APP!!!!!</h1>
         <img className='login-pic' src="https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/49067/large_thumb%402x.png"></img>
