@@ -5,9 +5,9 @@ body {
   font-family: 'Inter', sans-serif;
   ;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  /* justify-content: center;
+  align-items: center; */
+  /* height: 100vh; */
   overflow: hidden;
   background: #9FE870;
 }
@@ -110,8 +110,8 @@ body {
 .main-container {
   display: flex;
   border-style: solid;
-  width: 85vh;
-  height: 57vh;
+  /* width: 85vh; */
+  /* height: 57vh; */
   padding: 10px;
   border-radius: 10px;
   background-color: white;
@@ -124,7 +124,7 @@ body {
 .stats-outer-container {
   display: flex;
   flex-direction: column;
-  width: 45%;
+
   margin-right: 10px;
   gap: 10px;
   border-width: 1px;
@@ -132,13 +132,15 @@ body {
 }
 
 .stats-container {
+
+
   display: flex;
   justify-content: center;
   flex-direction: column;
   font-size: 20px;
   text-align: center;
   align-items: center;
-  height: 25%;
+
   border-style: solid;
   border-radius: 10px;
   border-width: 1px;
