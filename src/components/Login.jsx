@@ -1,9 +1,9 @@
 import { FormControl, FormLabel } from '@mui/material';
-import React from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
+import React from 'react';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -18,18 +18,21 @@ const Login = () => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ username: document.querySelector('#username').value, password: document.querySelector('#password').value }),
+			body: JSON.stringify({
+				username: document.querySelector('#username').value,
+				password: document.querySelector('#password').value,
+			}),
 		})
-		.then(res => res.json())
-		.then(data => {
-			if(data.authenticated) {
-				navigate('/main');
-			} else {
-				navigate('/signup');
-			}
-		})
-		.catch(err => console.log('error occured: ', err));
-	}
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.authenticated) {
+					navigate('/main');
+				} else {
+					navigate('/signup');
+				}
+			})
+			.catch((err) => console.log('error occured: ', err));
+	};
 
 	const handleSignupClick = () => {
 		navigate('/signup');
