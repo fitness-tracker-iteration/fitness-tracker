@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+  /** Too much state! Much of this can be deleted since it is being handled by the reducer. Rerenders should be handled with
+   *  the use of useSelector where it is needed.
+   */
   const [age, setAge] = useState(0);
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
@@ -24,8 +27,11 @@ const Dashboard = () => {
   const [animate, setAnimate] = useState(false);
   const [updateWeightGoal, setUpdateWeightGoal] = useState(false);
   const [minutes, setMinutes] = useState(0);
-  const navigate = useNavigate();
+  const navigate = useNavigate();   //this wont be necessary in the dashboard component anymore since we are not routing elsewhere.
 
+  /** This AJAX request needs to be updated to reflect DB changes. Upon initial render, this AJAX should fetch the relevant saved
+   *  data from a user's previous session.
+   */
   useEffect(() => {
     fetch('/stats').then(response => response.json()).then(data => {
       console.log(data);
@@ -41,6 +47,7 @@ const Dashboard = () => {
     })
   }, []);
 
+  /** This functionality can be refactored and moved to the NavBar component */
   const logout = async () => {
     try {
       const response = await fetch('/logout', {
@@ -54,6 +61,9 @@ const Dashboard = () => {
     }
   }
 
+  /** writeToDB and writeToDB2 will no longer be neccessary. This will be handled by state and given to the DB for storage upon
+   *  a single AJAX PATCH request. ** See note at bottom of reducer.js **
+   */
   const writeToDB = async () => {
     if (isNaN(Number(weightInput)))
       return;
@@ -89,7 +99,11 @@ const Dashboard = () => {
       console.log(error);
     }
   }
+/************************************************************************************************************************ */
 
+  /** This seems to be the function handling the state logic associated with showing results vs not showing results depending
+   *  on if information is given. This type of functionality can get simplified and refactored inside the Results component.
+   */
   const areFieldsFilled = () => {
     if (!calories || !days || !activityLevel) {
       setDisplayCalculate(false);
@@ -103,6 +117,13 @@ const Dashboard = () => {
     }
   }
 
+  /** calculateCalories
+   *    IN: age, height, weight, sex, goal, days, activityLevel --> obtained from state
+   *    OUT: numberToString of calories needed to burn daily, a 'minutes' array that calculates approximate number of minutes
+   *          of 3 different activities needed to burn that many calories
+   *    NOTE: This function can largely stay intact. Much of it can be simplified, reduced down to just returning the numberToString
+   *          and array of calculated minutes.
+   */
   const calculateCalories = () => {
     console.log("calculating calories for : " + calories + " " + days + "days " + activityLevel + ' activityLevel');
     const metabolicRate = sex === 'male' ? 66.47 + (6.24 * Number(weight)) + (12.7 * Number(height)) - (6.755 * Number(age)) : 655.1 + (4.35 * Number(weight)) + (4.7 * Number(height)) - (4.7 * Number(age));
@@ -143,6 +164,9 @@ const Dashboard = () => {
     setCalculate(dailyBurnCalories);
   }
 
+  /** All the code below seems to be related to the animations set to run when displaying results. Again, this can be simplified and refactored
+   *  within the Results component. Much of this is utilizing state in an egregious way, we can clean this up to be one function call (if that).
+   */
   useEffect(() => {
     areFieldsFilled();
     setAnimate(true);
@@ -175,7 +199,9 @@ const Dashboard = () => {
 
     }
   }
+/*************************************************************************************************************************************** */
 
+/** This function can stay. Its pure and serves a simple functionality within the UI. Can get rid of if not neccessary. */
   const getDate = () => {
     let today = new Date();
     let options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -183,6 +209,11 @@ const Dashboard = () => {
     return formattedDate;
 
   }
+
+  /** This will get cleaned up to essentially return our 3 sub-components (NavBar, Form, Results). A lot of the ternary logic within this
+   *  will also get refactored since all of them are dependent on the useStates above that are mostly getting deleted. Some of the written
+   *  code here could be re-used in the appropriate component, but this is largely dependent on how we are handling MUI.
+   */
   return (
     <div>
       <div className='nav-bar'>
