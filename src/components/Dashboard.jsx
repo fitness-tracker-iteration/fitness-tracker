@@ -11,7 +11,7 @@ import Results from './Results';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  
+  /** NOTE: dependency for useEffect may need to change. */
  	/** Initial GET request for previously saved user data */
    useEffect(() => {
 		fetch('/stats')

@@ -16,7 +16,9 @@ import TextField from '@mui/material/TextField';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-
+/** NOTE: document.querySelector is not grabing values of sliders, buttons, or radioGroup within MUI.
+ *  		Consider using local state to manage this.
+ */
 const Form = () => {
 	const dispatch = useDispatch();
 
@@ -35,6 +37,7 @@ const Form = () => {
 
 	/** Dispatch action to update state and send PATCH request to update DB */
 	const handleCalculate = () => {
+		/** NOTE: updateStats needs to change to reflect data being passed to backend */
 		dispatch(updateStats({
 			age: document.querySelector('#age').value,
 			height: document.querySelector('#height').value,
@@ -45,6 +48,21 @@ const Form = () => {
 			days: document.querySelector('#days').value,
 			activityLevel: document.querySelector('#activityLevel').value
 		}));
+
+		fetch('/stats', {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				age: document.querySelector('#age').value,
+				height: document.querySelector('#height').value,
+				weight: document.querySelector('#weight').value,
+				sex: document.querySelector('#sex').value,
+				goal: document.querySelector('#goal').value,
+			}),
+		})
+		.catch((err) => console.log('error occured: ', err));
 	}
 
 	/**================================================= */
