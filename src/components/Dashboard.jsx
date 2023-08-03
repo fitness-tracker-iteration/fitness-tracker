@@ -242,7 +242,7 @@ const Dashboard = () => {
 					<Results />
 				</Box>
 			</Container>
-
+      <div> {/** old code */}
 			{/* <div className="nav-bar">
 				<div className="nav-bar-component">{getDate()}</div>
 				<button
@@ -293,6 +293,10 @@ const Dashboard = () => {
 					Log Out
 				</button>
 			</div> */}
+      </div>
 		</div>
 	);
 };
+
+
+export default Dashboard;

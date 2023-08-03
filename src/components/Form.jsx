@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateStats } from '../reducer.js';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,42 +15,51 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { useNavigate } from 'react-router-dom';
+
 
 const Form = () => {
-	const [age, setAge] = useState(21); // using this to read the age value and display to user
-	const [height, setHeight] = useState(6.1);
-	const [weight, setWeight] = useState(120);
-	const [sex, setSex] = useState('');
-	//this is the actual weight we need to change
-	const [goal, setGoal] = useState(120);
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	//condition for rending the textbox
-	const [updateWeight, setUpdateWeight] = useState(false);
-	//saves the value in the text box
-	const [weightInput, setWeightInput] = useState('');
-	const [goalInput, setGoalInput] = useState('');
-	const [calories, setCalories] = useState(0);
-	const [days, setDays] = useState(0);
-	const [activityLevel, setActivityLevel] = useState(0);
-	const [calculate, setCalculate] = useState('');
-	const [fieldsFilled, setFieldsFilled] = useState(false);
-	const [displayCalculate, setDisplayCalculate] = useState(false);
-	const [animate, setAnimate] = useState(false);
-	const [updateWeightGoal, setUpdateWeightGoal] = useState(false);
-	const [minutes, setMinutes] = useState(0);
-	const navigate = useNavigate();
-
+	/**================================================= */
 	// don't delete these
 	const [alignment, setAlignment] = useState('web');
 
 	const handleChange = (event, newAlignment) => {
 		setAlignment(newAlignment);
 	};
+	/**================================================= */
+	const dispatch = useDispatch();
+
+	/** Initial GET request for previously saved user data */
+	useEffect(() => {
+		fetch('/stats')
+		.then(res => res.json())
+		.then(data => {
+			dispatch(updateStats({
+				age: data.age,
+				height: data.height,
+				weight: data.weight,
+				sex: data.sex,
+				goal: data.goal
+			}));
+		})
+	}, []);
+
+	/** Dispatch action to update state and send PATCH request to update DB */
+	const handleCalculate = () => {
+		dispatch(updateStats({
+			age: document.querySelector('#age').value,
+			height: document.querySelector('#height').value,
+			weight: document.querySelector('#weight').value,
+			sex: document.querySelector('#sex').value,
+			goal: document.querySelector('#goal').value,
+			calories: document.querySelector('#calories').value,
+			days: document.querySelector('#days').value,
+			activityLevel: document.querySelector('#activityLevel').value
+		}));
+	}
 
 	return (
 		<div>
+			<div> {/** old code */}
 			{/* <div className="stats-outer-container">
 				<div className="stats-container">
 					{' '}
@@ -95,6 +106,7 @@ const Form = () => {
 					></input>
 				</div>
 			</div> */}
+			</div>
 			<Stack
 				spacing={3}
 				sx={{
@@ -102,8 +114,9 @@ const Form = () => {
 				}}
 			>
 				<FormControl>
-					<FormLabel>Gender</FormLabel>
+					<FormLabel>Sex</FormLabel>
 					<RadioGroup
+						id="sex"
 						row
 						aria-labelledby="demo-row-radio-buttons-group-label"
 						name="row-radio-buttons-group"
@@ -113,13 +126,17 @@ const Form = () => {
 							control={<Radio />}
 							label="Female"
 						/>
-						<FormControlLabel value="male" control={<Radio />} label="Male" />
+						<FormControlLabel 
+							value="male" 
+							control={<Radio />} 
+							label="Male" />
 					</RadioGroup>
 				</FormControl>
 				<FormControl>
 					<FormLabel>I am {age} years old</FormLabel>
 
 					<Slider
+						id="age"
 						defaultValue={age}
 						onChange={(e) => setAge(e.target.value)}
 						aria-label="Default"
@@ -130,6 +147,7 @@ const Form = () => {
 					<FormLabel>My Height: {height} ft</FormLabel>
 
 					<Slider
+						id="height"
 						defaultValue={height}
 						step={0.1}
 						min={3}
@@ -143,6 +161,7 @@ const Form = () => {
 					<FormLabel>Current Weight {weight} lbs</FormLabel>
 
 					<Slider
+						id="weight"
 						defaultValue={age}
 						onChange={(e) => setWeight(e.target.value)}
 						aria-label="Default"
@@ -155,6 +174,7 @@ const Form = () => {
 					<FormLabel>Target Weight: {goal} lbs</FormLabel>
 
 					<Slider
+						id="goal"
 						defaultValue={goal}
 						onChange={(e) => setGoal(e.target.value)}
 						aria-label="Default"
@@ -167,7 +187,7 @@ const Form = () => {
 					<FormControl>
 						<FormLabel>Daily calorie intake</FormLabel>
 						<TextField
-							id="calorie"
+							id="calories"
 							type="number"
 							// value={firstName}
 							// onChange={(e) => setFirstName(e.target.value)}
@@ -186,6 +206,7 @@ const Form = () => {
 					</FormControl>
 				</Grid>
 				<ToggleButtonGroup
+					id="activityLevel"
 					color="primary"
 					value={alignment}
 					exclusive
@@ -196,7 +217,7 @@ const Form = () => {
 					<ToggleButton value="3">Moderate</ToggleButton>
 					<ToggleButton value="5">Active</ToggleButton>
 				</ToggleButtonGroup>
-				<Button variant="contained">Calculate</Button>
+				<Button variant="contained" onClick={handleCalculate}>Calculate</Button>
 			</Stack>
 		</div>
 	);
