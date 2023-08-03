@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateStats } from '../reducer.js';
 
 import Box from '@mui/material/Box';
@@ -18,30 +18,17 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 
 const Form = () => {
-	/**================================================= */
-	// don't delete these
-	const [alignment, setAlignment] = useState('web');
-
-	const handleChange = (event, newAlignment) => {
-		setAlignment(newAlignment);
-	};
-	/**================================================= */
 	const dispatch = useDispatch();
 
-	/** Initial GET request for previously saved user data */
-	useEffect(() => {
-		fetch('/stats')
-		.then(res => res.json())
-		.then(data => {
-			dispatch(updateStats({
-				age: data.age,
-				height: data.height,
-				weight: data.weight,
-				sex: data.sex,
-				goal: data.goal
-			}));
-		})
-	}, []);
+	/** useSelector for grabbing previous/default values */
+	const age = useSelector(state => state.age);
+	const height = useSelector(state => state.height);
+	const weight = useSelector(state => state.weight);
+	const sex = useSelector(state => state.sex);	
+	const goal = useSelector(state => state.goal);
+	const calories = useSelector(state => state.calories);
+	const days = useSelector(state => state.days);
+	const activityLevel = useSelector(state => state.activityLevel);
 
 	/** Dispatch action to update state and send PATCH request to update DB */
 	const handleCalculate = () => {
@@ -57,6 +44,14 @@ const Form = () => {
 		}));
 	}
 
+	/**================================================= */
+	// don't delete these
+	const [alignment, setAlignment] = useState('web');
+
+	const handleChange = (event, newAlignment) => {
+		setAlignment(newAlignment);
+	};
+	/**================================================= */
 	return (
 		<div>
 			<div> {/** old code */}
@@ -116,6 +111,7 @@ const Form = () => {
 				<FormControl>
 					<FormLabel>Sex</FormLabel>
 					<RadioGroup
+						defaultValue={sex}
 						id="sex"
 						row
 						aria-labelledby="demo-row-radio-buttons-group-label"
