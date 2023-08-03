@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateStats } from '../reducer.js';
 
@@ -21,14 +21,17 @@ const Form = () => {
 	const dispatch = useDispatch();
 
 	/** useSelector for grabbing previous/default values */
-	const age = useSelector(state => state.age);
-	const height = useSelector(state => state.height);
-	const weight = useSelector(state => state.weight);
-	const sex = useSelector(state => state.sex);	
-	const goal = useSelector(state => state.goal);
-	const calories = useSelector(state => state.calories);
-	const days = useSelector(state => state.days);
-	const activityLevel = useSelector(state => state.activityLevel);
+	const ageDefault = useSelector(state => state.stats.age);
+	const heightDefault = useSelector(state => state.stats.height);
+	const weightDefault = useSelector(state => state.stats.weight);
+	const sexDefault = useSelector(state => state.stats.sex);	
+	const goalDefault = useSelector(state => state.stats.goal);
+
+	/** Declare local state to manage dynamic rendering of values */
+	const [age, setAge] = useState(ageDefault);
+	const [height, setHeight] = useState(heightDefault);
+	const [weight, setWeight] = useState(weightDefault);
+	const [goal, setGoal] = useState(goalDefault);
 
 	/** Dispatch action to update state and send PATCH request to update DB */
 	const handleCalculate = () => {
@@ -111,7 +114,7 @@ const Form = () => {
 				<FormControl>
 					<FormLabel>Sex</FormLabel>
 					<RadioGroup
-						defaultValue={sex}
+						defaultValue={sexDefault}
 						id="sex"
 						row
 						aria-labelledby="demo-row-radio-buttons-group-label"
@@ -133,7 +136,7 @@ const Form = () => {
 
 					<Slider
 						id="age"
-						defaultValue={age}
+						defaultValue={ageDefault}
 						onChange={(e) => setAge(e.target.value)}
 						aria-label="Default"
 						valueLabelDisplay="auto"
@@ -144,7 +147,7 @@ const Form = () => {
 
 					<Slider
 						id="height"
-						defaultValue={height}
+						defaultValue={heightDefault}
 						step={0.1}
 						min={3}
 						max={10}
@@ -158,7 +161,7 @@ const Form = () => {
 
 					<Slider
 						id="weight"
-						defaultValue={age}
+						defaultValue={weightDefault}
 						onChange={(e) => setWeight(e.target.value)}
 						aria-label="Default"
 						valueLabelDisplay="auto"
@@ -171,7 +174,7 @@ const Form = () => {
 
 					<Slider
 						id="goal"
-						defaultValue={goal}
+						defaultValue={goalDefault}
 						onChange={(e) => setGoal(e.target.value)}
 						aria-label="Default"
 						valueLabelDisplay="auto"

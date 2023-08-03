@@ -17,13 +17,15 @@ const Dashboard = () => {
 		fetch('/stats')
 		.then(res => res.json())
 		.then(data => {
-			dispatch(updateStats({
-				age: data.age,
-				height: data.height,
-				weight: data.weight,
-				sex: data.sex,
-				goal: data.goal
-			}));
+      if(data.age !== null && data.sex !== null) {
+        dispatch(updateStats({
+          age: data.age,
+          height: data.height,
+          weight: data.weight,
+          sex: data.sex,
+          goal: data.goal
+        }));
+      }
 		})
 	}, []);
 
