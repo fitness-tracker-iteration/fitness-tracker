@@ -4,15 +4,15 @@ import { createSlice } from '@reduxjs/toolkit';
  *  data thats being displayed to the user.
  */
 const initialState = {
-    age: 0,
-    height: 0,
-    weight: 0,
-    sex: '',
-    goal: 0,
+    age: 18,
+    height: 5,
+    weight: 100,
+    sex: 'female',
+    goal: 100,
     //the three properties below should only be held in state and not sent to DB! See note at bottom of file for when DB needs to be updated.
     calories: 0,
     days: 0,
-    activityLevel: 0
+    activityLevel: 1
 };
 
 /** The 'export' at the beginning of this const declaration designates it as a 'default' export so we can more easily import our slice
