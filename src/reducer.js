@@ -28,7 +28,15 @@ export const statSlice = createSlice({
         /** updateStats should be invoked after Form component inputs are filled out */
         updateStats: (state, action) => {
             //update state with action.payload --> action.payload should contain all keys in initialState that are being updated
-
+            const { age, height, weight, sex, goal, calories, days, activityLevel } = action.payload;
+            state.age = age;
+            state.height = height;
+            state.weight = weight;
+            state.sex = sex;
+            state.goal = goal;
+            state.calories = calories;
+            state.days = days;
+            state.activityLevel = activityLevel;
         },
     }
 });
