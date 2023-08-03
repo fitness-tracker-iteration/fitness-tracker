@@ -1,10 +1,12 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const userController = {};
 const { User } = require('../models/userModel')
 
 userController.verifyUser = (req, res, next) => {
 // we will be recieving username and password in the request body. check if username exists and if so check if password matches. If match set authenticated to true in res.locals and pass along to next middleware. otherwise call global error handler with message user not authenticated and status code 401.
     const { username, password } = req.body;
-    User.findOne({ username }).then(user => {
+    User.findOne({ username }).then(async (user) => {
         if (!user) {
             return next({
                 log: 'error in userController.verifyUser',
@@ -12,11 +14,28 @@ userController.verifyUser = (req, res, next) => {
                   err: `No user found`
                 }})
         }
-            if (user.password === password) {
+
+        const isPasswordValid = await bcrypt.compare(password, user.password); 
+
+            if (isPasswordValid) {
+
+                const token = jwt.sign(
+                    {userId: user._id }, 
+                    process.env.JWT.SECRET || 'default-secret',
+                    {expiresIn: '2h'}
+                )
+
+                res.cookie('usertoken', token, {
+                    httpOnly: true, 
+                    domain: 'localhost',
+                    path: '/',
+                    expires: new Date(Date.now() + 9000000)
+                })
                 res.locals = {
                     authenticated: true,
-                    _id: user._id,
-                }
+                    _id: user._id, 
+                    token: token
+                } 
                 return next();
             } else {
                 return next({
@@ -33,7 +52,7 @@ userController.verifyUser = (req, res, next) => {
 }
 
 
-userController.createUser = (req, res, next) => {
+userController.createUser = async (req, res, next) => {
     const { username, password, firstName, lastName } = req.body;
 
     if (!username || !password || !firstName || !lastName)
@@ -41,9 +60,12 @@ userController.createUser = (req, res, next) => {
         log: 'Missing username/password in UserController.createUser',
         message : {err: 'An error occured'}
     })
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     User.create({ 
         username, 
-        password, 
+        password: hashedPassword, 
         firstName, 
         lastName, 
     }) 
@@ -57,7 +79,6 @@ userController.createUser = (req, res, next) => {
             message: {err:  `Error trying to create user: ${err}`},
         });
     });
-
 };
 
 userController.updateStats = (req, res, next) => {
