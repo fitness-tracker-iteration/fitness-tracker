@@ -28,7 +28,15 @@ export const statSlice = createSlice({
         /** updateStats should be invoked after Form component inputs are filled out */
         updateStats: (state, action) => {
             //update state with action.payload --> action.payload should contain all keys in initialState that are being updated
-
+            const { age, height, weight, sex, goal, calories, days, activityLevel } = action.payload;
+            state.age = age;
+            state.height = height;
+            state.weight = weight;
+            state.sex = sex;
+            state.goal = goal;
+            state.calories = calories;
+            state.days = days;
+            state.activityLevel = activityLevel;
         },
     }
 });
@@ -41,4 +49,16 @@ export const { updateStats } = statSlice.actions;
  *                                      and coordinating an update to DB as well. At the very least, a single AJAX request to the DB 
  *                                      to PATCH should be made before logout or session end. To be safe, DB would be updated everytime 
  *                                      state is.
+ */
+
+
+/** GENERAL NOTES:
+ *  - document.querySelector is not properly grabbing values from MUI components, consider refactoring.
+ * 
+ *  - useEffect dependencies may need to change, further testing of this needs to be done to confirm. 
+ *      Consider console logging state to see if useEffect is updating state from Dashboard or if it is
+ *      running the calculate function declared in Results.
+ * 
+ *  - I would also double check that all AJAX requests in the frontend are getting sent properly to the
+ *      backend.
  */

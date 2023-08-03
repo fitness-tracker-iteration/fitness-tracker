@@ -4,7 +4,7 @@ import { statSlice } from "./reducer";
 /** store.js allows us to create multiple slices that handle different states if needed. In our case, we only need one. */
 const store = configureStore({
     reducer: {
-        stats: statSlice.reducer
+        stats: statSlice.reducer,
     }
 });
 
