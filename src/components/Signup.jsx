@@ -27,11 +27,12 @@ const Signup = () => {
 		})
 		.then(res => res.json())
 		.then(data => {
-			if(data.successMessage) {
+            console.log("resdata", data)
+			// if(data.user) {
 				navigate('/');
-			} else {
-				navigate('/signup');	//need some sort of alert that signup failed
-			}
+			// } else {
+			// 	navigate('/signup');	//need some sort of alert that signup failed
+			// }
 		})
 		.catch(err => console.log('error occured: ', err));
 	}

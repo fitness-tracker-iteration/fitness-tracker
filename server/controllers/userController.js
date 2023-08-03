@@ -21,7 +21,7 @@ userController.verifyUser = (req, res, next) => {
 
                 const token = jwt.sign(
                     {userId: user._id }, 
-                    process.env.JWT.SECRET || 'default-secret',
+                    process.env.JWT_SECRET || 'default-secret',
                     {expiresIn: '2h'}
                 )
 
@@ -71,6 +71,7 @@ userController.createUser = async (req, res, next) => {
     }) 
     .then((user) => {
         res.locals._id = user._id;
+        res.locals.user = user; 
         return next();
     })
     .catch((err) => {
