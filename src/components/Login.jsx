@@ -25,6 +25,7 @@ const Login = () => {
 		})
 			.then((res) => res.json())
 			.then((data) => {
+                console.log('res data', data);
 				if (data.authenticated) {
 					navigate('/main');
 				} else {

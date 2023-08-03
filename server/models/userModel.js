@@ -22,6 +22,8 @@ const userSchema = new Schema({
   // stats: statsSchema
 });
 
+
+
 // stats: [ statsSchema ]
 
 const User = mongoose.model('user', userSchema)
