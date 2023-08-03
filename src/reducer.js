@@ -57,7 +57,7 @@ export const { updateStats } = statSlice.actions;
  * 
  *  - useEffect dependencies may need to change, further testing of this needs to be done to confirm. 
  *      Consider console logging state to see if useEffect is updating state from Dashboard or if it is
- *      running the function declared in Results.
+ *      running the calculate function declared in Results.
  * 
  *  - I would also double check that all AJAX requests in the frontend are getting sent properly to the
  *      backend.

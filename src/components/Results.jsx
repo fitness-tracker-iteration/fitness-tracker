@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 const Results = () => {
 	/** useSelector for grabbing state which will get inputted to calcCal func */
-	const state = useSelector(state => state.stats);
 	const age = useSelector(state => state.stats.age);
 	const height = useSelector(state => state.stats.height);
 	const weight = useSelector(state => state.stats.weight);
@@ -52,7 +51,7 @@ const Results = () => {
 		setBurnCalories(dailyBurnCalories);
 	}
     /** NOTE: dependency for useEffect may need to change. */
-	useEffect(calculateCalories, [state]);
+	useEffect(calculateCalories, []);
 	// console.log(burnCalories, activities);
 
 	return (
