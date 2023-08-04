@@ -13,9 +13,6 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       template: './src/index.html'
-    }),
-    new HtmlWebpackPlugin({
-      title: 'Hot Module Replacement'
     })
   ],
   resolve: {
@@ -59,8 +56,7 @@ module.exports = {
     proxy: {
       '/': 'http://localhost:3000',
     },
-    historyApiFallback: true,
-    hot: true
+    historyApiFallback: true
   }
 
 

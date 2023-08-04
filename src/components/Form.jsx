@@ -134,8 +134,7 @@ const Form = () => {
   };
 	/**================================================= */
 	return (
-		<Box sx={{ border: '3px solid #000', padding: '35px', borderRadius: '10px', width: 350, 
-		height: 500}}>
+		<Box sx={{ border: '3px solid #000', padding: '35px', borderRadius: '10px', boxSizing:'border-box'}}>
 		{/* <form onSubmit = {handleSubmit(onSubmit)} > */}
 			<Stack
 				spacing={3}
