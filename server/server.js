@@ -48,11 +48,11 @@ app.get('/main',
  sessionController.isLoggedIn, 
  (req, res) => res.status(200).json({message: 'User is Logged In!'}))
 
- app.patch('/stats', statsController.updateStats, (req, res) => {
+ app.patch('/stats', userController.updateStats, (req, res) => {
   res.sendStatus(200)
  })
 
- app.get('/stats', statsController.getUserInfo, (req, res) => {
+ app.get('/stats', userController.getStats, (req, res) => {
   res.status(200).json(res.locals.userInfo)
  })
 

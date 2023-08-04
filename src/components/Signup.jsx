@@ -3,6 +3,7 @@ import React from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -37,12 +38,17 @@ const Signup = () => {
 		.catch(err => console.log('error occured: ', err));
 	}
 
+	const handleSignInClick = () => {
+		navigate('/');
+	};
+
 	return (
-		<div>
+		<div style ={{display: "flex", flexDirection: "column", alignItems: 
+		"center", justifyContent: "center", position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)"}}>
 			<Typography variant="h4" gutterBottom>
 				Sign Up
 			</Typography>
-			<Stack spacing={3}>
+			<Stack spacing={3} sx = {{ display: "flex", flexDirection: "column", alignItems: "center", width: 400}}>
 				<Grid spacing={2}>
 					<FormControl>
 						<FormLabel>First Name</FormLabel>
@@ -89,7 +95,8 @@ const Signup = () => {
 					Sign Up
 				</Button>
 				<Typography variant="subtitle1" gutterBottom>
-					Already got an account? Log in
+					Already got an account?{' '}
+					<Link onClick={handleSignInClick}>Sign in</Link>
 				</Typography>
 			</Stack>
 		</div>

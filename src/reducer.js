@@ -12,7 +12,9 @@ const initialState = {
     //the three properties below should only be held in state and not sent to DB! See note at bottom of file for when DB needs to be updated.
     calories: 0,
     days: 0,
-    activityLevel: 1
+    activityLevel: 1,
+    burnCalories: 0,
+    activities: ['0', '0', '0']
 };
 
 /** The 'export' at the beginning of this const declaration designates it as a 'default' export so we can more easily import our slice
@@ -28,7 +30,7 @@ export const statSlice = createSlice({
         /** updateStats should be invoked after Form component inputs are filled out */
         updateStats: (state, action) => {
             //update state with action.payload --> action.payload should contain all keys in initialState that are being updated
-            const { age, height, weight, sex, goal, calories, days, activityLevel } = action.payload;
+            const { age, height, weight, sex, goal, calories, days, activityLevel, burnCalories, activities } = action.payload;
             state.age = age;
             state.height = height;
             state.weight = weight;
@@ -37,12 +39,22 @@ export const statSlice = createSlice({
             state.calories = calories;
             state.days = days;
             state.activityLevel = activityLevel;
+            state.burnCalories = burnCalories;
+            state.activities = activities;
         },
+        getInitStats: (state, action) => {
+            const { age, height, weight, sex, goal } = action.payload;
+            state.age = age;
+            state.height = height;
+            state.weight = weight;
+            state.sex = sex;
+            state.goal = goal;
+        }
     }
 });
 
 /** This export allows us to directly call specific reducers within the component we need it in when dispatching actions for state change. */
-export const { updateStats } = statSlice.actions;
+export const { updateStats, getInitStats } = statSlice.actions;
 
 /** NOTE FOR UPDATING DB WITH STATE: AJAX requests should be contained within the component it is needed. Using useEffect(), with
  *                                      a dependency of a dispatch invocation (or change in state), should be used when updating state 
