@@ -56,7 +56,8 @@ module.exports = {
     proxy: {
       '/': 'http://localhost:3000',
     },
-    historyApiFallback: true
+    historyApiFallback: true, 
+    hot: true
   }
 
 

@@ -28,23 +28,23 @@ const Results = () => {
 				</div>
 				<div className="exercise-box">
 					<p>
-						<Typography sx={{ fontWeight: 'bold'}}>That's roughly </Typography>
+						<Typography sx={{ fontWeight: 'bold'}}>That's roughly... </Typography>
 					<Typography sx={{ fontWeight: 'bold' }} color="secondary">
 						{activities[0]}
 					</Typography>
-					<Typography sx={{ fontWeight: 'bold'}}>minutes of daily running</Typography>
+					<p>minutes of daily running</p>
 					</p>
 					<p>
 					<Typography sx={{ fontWeight: 'bold' }} color="secondary">
 						{activities[1]}
 					</Typography>
-					<Typography sx={{ fontWeight: 'bold' }}>minutes of walking, or</Typography>
+					<p>minutes of walking, or</p>
 					</p>
 					<p>
 					<Typography sx={{ fontWeight: 'bold' }} color="secondary">
 						{activities[2]}
 					</Typography>
-					<Typography sx={{ fontWeight: 'bold' }}>minutes of bicycling!</Typography>
+					<p>minutes of bicycling!</p>
 					</p>
 				</div>
 			</div>

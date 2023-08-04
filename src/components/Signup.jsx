@@ -49,7 +49,7 @@ const Signup = () => {
 				Sign Up
 			</Typography>
 			<Stack spacing={3} sx = {{ display: "flex", flexDirection: "column", alignItems: "center", width: 400}}>
-				<Grid spacing={2}>
+				{/* <Grid spacing={2}> */}
 					<FormControl>
 						<FormLabel>First Name</FormLabel>
 						<TextField
@@ -70,7 +70,7 @@ const Signup = () => {
 							placeholder="Last Name..."
 						></TextField>
 					</FormControl>
-				</Grid>
+				{/* </Grid> */}
 				<FormControl>
 					<FormLabel>Username</FormLabel>
 					<TextField

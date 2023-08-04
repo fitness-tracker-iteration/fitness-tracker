@@ -57,7 +57,7 @@ function ResponsiveAppBar() {
 							textDecoration: 'none',
 						}}
 					>
-						Fitness Tracker
+						Fitness Tracker 2.0
 					</Typography>
 				</Toolbar>
 			</Container>
