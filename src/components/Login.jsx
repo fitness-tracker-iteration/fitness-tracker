@@ -41,11 +41,12 @@ const Login = () => {
 
 	return (
 		<div>
-			<div>
+			<div style ={{display: "flex", flexDirection: "column", alignItems: 
+		"center", justifyContent: "center", position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)"}}>
 				<Typography variant="h4" gutterBottom>
 					Log in to your account
 				</Typography>
-				<Stack spacing={3}>
+				<Stack spacing={3} sx = {{ display: "flex", flexDirection: "column", alignItems: "center", width: 400}}>
 					<FormControl>
 						<FormLabel>Username</FormLabel>
 						<TextField

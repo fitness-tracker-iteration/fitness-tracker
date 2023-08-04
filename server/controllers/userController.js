@@ -96,7 +96,20 @@ userController.updateStats = (req, res, next) => {
         }}))
 }
 
-
+userController.getStats = (req, res, next) => {
+    const { ssid } = req.cookies;
+    User.findById({_id: ssid})
+    .then(user => {
+      console.log(user);
+      const { age, sex, height, weight, goal } = user;
+      res.locals.userInfo = { age: age, sex: sex, height: height, weight: weight, goal: goal }
+      return next();
+    }).catch (err => next({
+      log: 'error in statsController.getCookies',
+          message: {
+            err: `Error: ${err}`
+    }}))
+}
 
 
 module.exports = userController;

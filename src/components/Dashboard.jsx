@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateStats } from '../reducer.js';
-
+import { getInitStats } from '../reducer.js';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Form from './Form';
@@ -17,15 +16,16 @@ const Dashboard = () => {
 		fetch('/stats')
 		.then(res => res.json())
 		.then(data => {
-      if(data.age !== null && data.sex !== null) {
-        dispatch(updateStats({
-          age: data.age,
-          height: data.height,
-          weight: data.weight,
-          sex: data.sex,
-          goal: data.goal
-        }));
-      }
+			console.log('2', data)
+			if(data !== undefined) {
+				dispatch(getInitStats({
+				age: data.age,
+				height: data.height,
+				weight: data.weight,
+				sex: data.sex,
+				goal: data.goal
+				}));
+			}
 		})
 	}, []);
 
